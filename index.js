@@ -30,6 +30,15 @@ function parseAccountInfo(loginHtml) {
     return { id, money, saveTime };
 }
 
+function parseAttackInfo(attackHtml) {
+    const $ = cheerio.load(attackHtml);
+
+    const message  = $(".break-top .charge").text();
+    const saveTime = $("#saveTime").text();
+
+    return { message, saveTime };
+}
+
 //
 async function login(username, password) {
     const formData = new FormData();
@@ -44,6 +53,22 @@ async function login(username, password) {
     return response.body;
 }
 
+async function attack() {
+    const formData = new FormData();
+
+    // TODO: char_[ID] to settings
+    formData.append("char_todo", "1");
+    formData.append("monster_battle", "戰鬥!");
+
+    // TODO: monster id to settings
+    const response = await client("index.php?common=monster_id", {
+        method: "post",
+        body  : formData,
+    });
+
+    return response.body;
+}
+
 async function main() {
     const loginHtml   = await login(settings.username, settings.password);
     const accountInfo = parseAccountInfo(loginHtml);
@@ -51,6 +76,15 @@ async function main() {
     console.log(`ID   : ${accountInfo.id}`);
     console.log(`Money: ${accountInfo.money}`);
     console.log(`Time : ${accountInfo.saveTime}`);
+    console.log("----------")
+
+    console.log(`Attack >>>`);
+
+    const attackHtml = await attack();
+    const attackInfo = parseAttackInfo(attackHtml);
+
+    console.log(`- message: ${attackInfo.message}`);
+    console.log(`- Time   : ${attackInfo.saveTime}`);
 }
 
 main();
