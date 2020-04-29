@@ -1,0 +1,10 @@
+{
+    "name": "hof-tools",
+    "version": "0.1.0",
+    "license": "MIT",
+    "dependencies": {
+        "form-data": "^3.0.0",
+        "got": "^11.0.2",
+        "tough-cookie": "^4.0.0"
+    }
+}
