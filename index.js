@@ -1,6 +1,7 @@
 const got = require("got");
 const { CookieJar } = require("tough-cookie");
 const FormData = require("form-data");
+const cheerio = require("cheerio");
 
 const settings = require("./settings.json");
 
@@ -17,7 +18,16 @@ const client = got.extend({
 
 //
 function parseAccountInfo(loginHtml) {
-    // TODO: parse username, money, time
+    const $ = cheerio.load(loginHtml);
+
+    let id       = $("#menu2 > div > div:nth-child(1)").text();
+    let money    = $("#menu2 > div > div:nth-child(2) > div:nth-child(1)").text();
+    let saveTime = $("#saveTime").text();
+
+    id    = id.trim();
+    money = money.match(/(?:\$\s)((?:[0-9]*)(?:,?[0-9]*)*)/)[1];
+
+    return { id, money, saveTime };
 }
 
 //
@@ -37,6 +47,10 @@ async function login(username, password) {
 async function main() {
     const loginHtml   = await login(settings.username, settings.password);
     const accountInfo = parseAccountInfo(loginHtml);
+
+    console.log(`ID   : ${accountInfo.id}`);
+    console.log(`Money: ${accountInfo.money}`);
+    console.log(`Time : ${accountInfo.saveTime}`);
 }
 
 main();
