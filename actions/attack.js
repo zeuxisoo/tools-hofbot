@@ -1,8 +1,6 @@
-const { client } = require("../common");
+const { client, settings } = require("../common");
 const FormData = require("form-data");
 const cheerio = require("cheerio");
-
-const settings = require("../settings.json");
 
 // Parse response HTML content
 function parseAccountInfo(loginHtml) {
