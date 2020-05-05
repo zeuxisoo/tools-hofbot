@@ -3,6 +3,10 @@
     "password": "",
 
     "attack": {
-        "stopWhenSaveTimeLessThan": 1000
+        "stopWhenSaveTimeLessThan": 1000,
+        "monsterId": "gb0",
+        "charIds": {
+            "char_": true
+        }
     }
 }

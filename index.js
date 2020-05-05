@@ -56,12 +56,13 @@ async function login(username, password) {
 async function attack() {
     const formData = new FormData();
 
-    // TODO: char_[ID] to settings
-    formData.append("char_[ID]", "1");
+    for(let [charId, isEnable] of Object.entries(settings.attack.charIds)) {
+        formData.append(charId, +isEnable);
+    }
+
     formData.append("monster_battle", "戰鬥!");
 
-    // TODO: monster id to settings
-    const response = await client("index.php?common=[MONSTER_ID]", {
+    const response = await client(`index.php?common=${settings.attack.monsterId}`, {
         method: "post",
         body  : formData,
     });
