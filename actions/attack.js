@@ -1,20 +1,8 @@
-const got = require("got");
-const { CookieJar } = require("tough-cookie");
+const { client } = require("../common");
 const FormData = require("form-data");
 const cheerio = require("cheerio");
 
 const settings = require("../settings.json");
-
-//
-const cookeJar = new CookieJar();
-
-const client = got.extend({
-    prefixUrl: "http://h.e-talking.net/",
-    cookieJar: cookeJar,
-    headers  : {
-        "user-agent": "hof-bot"
-    },
-});
 
 //
 function parseAccountInfo(loginHtml) {
