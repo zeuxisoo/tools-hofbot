@@ -1,11 +1,11 @@
 const got = require("got");
 const { CookieJar } = require("tough-cookie");
 
-const cookeJar = new CookieJar();
+const cookieJar = new CookieJar();
 
 const client = got.extend({
     prefixUrl: "http://h.e-talking.net/",
-    cookieJar: cookeJar,
+    cookieJar: cookieJar,
     headers  : {
         "user-agent": "hof-bot"
     },
