@@ -4,7 +4,7 @@ const cheerio = require("cheerio");
 
 const settings = require("../settings.json");
 
-//
+// Parse response HTML content
 function parseAccountInfo(loginHtml) {
     const $ = cheerio.load(loginHtml);
 
@@ -27,7 +27,7 @@ function parseAttackInfo(attackHtml) {
     return { message, saveTime };
 }
 
-//
+// Make request action
 async function login(username, password) {
     const formData = new FormData();
     formData.append("id", username);
@@ -58,7 +58,7 @@ async function attack() {
     return response.body;
 }
 
-//
+// Control flow
 async function loopAttack() {
     const attackHtml = await attack();
     const attackInfo = parseAttackInfo(attackHtml);
@@ -70,6 +70,7 @@ async function loopAttack() {
     }
 }
 
+// Main action
 async function main() {
     const loginHtml   = await login(settings.username, settings.password);
     const accountInfo = parseAccountInfo(loginHtml);
