@@ -1,6 +1,7 @@
-const { client, settings } = require("../common");
 const FormData = require("form-data");
 const cheerio = require("cheerio");
+const chalk = require("chalk");
+const { client, settings } = require("../common");
 
 // Parse response HTML content
 function parseAccountInfo(loginHtml) {
@@ -35,7 +36,7 @@ async function main() {
     const loginHtml   = await login(settings.username, settings.password);
     const accountInfo = parseAccountInfo(loginHtml);
 
-    console.log(`[Login] ID: ${accountInfo.id}, Money: ${accountInfo.money}, Time : ${accountInfo.saveTime}`);
+    console.log(chalk`{cyan [Login]} ID: {bold ${accountInfo.id}}, Money: {bold ${accountInfo.money}}, Time: {bold ${accountInfo.saveTime}}`);
 }
 
 module.exports = main;

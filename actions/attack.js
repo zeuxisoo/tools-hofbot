@@ -1,6 +1,7 @@
-const { client, settings } = require("../common");
 const FormData = require("form-data");
 const cheerio = require("cheerio");
+const chalk = require("chalk");
+const { client, settings } = require("../common");
 
 // Parse response HTML content
 function parseAttackInfo(attackHtml) {
@@ -35,7 +36,7 @@ async function loopAttack() {
     const attackHtml = await attack();
     const attackInfo = parseAttackInfo(attackHtml);
 
-    console.log(`[Attack] message: ${attackInfo.message}, time: ${attackInfo.saveTime}`);
+    console.log(chalk`{yellow [Attack]} message: {bold ${attackInfo.message}}, time: {bold ${attackInfo.saveTime}}`);
 
     if (attackInfo.saveTime > settings.attack.stopWhenSaveTimeLessThan) {
         loopAttack();

@@ -1,3 +1,4 @@
+const chalk = require("chalk");
 const { program } = require("commander");
 const { loginAction, attackAction } = require("./actions");
 
@@ -10,4 +11,7 @@ program
     .action(attackAction);
 
 // Login first before execute command
+console.log(chalk`{black.bgWhite Action}`);
+console.log("--------");
+
 loginAction().then(() => program.parse());
