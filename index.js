@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const { program } = require("commander");
-const { loginAction, attackAction } = require("./actions");
+const { attackAction } = require("./actions");
 
 // Define command
 program
@@ -8,10 +8,7 @@ program
 
 program
     .command("attack")
+    .description("start the auto attack action")
     .action(attackAction);
 
-// Login first before execute command
-console.log(chalk`{black.bgWhite Action}`);
-console.log("--------");
-
-loginAction().then(() => program.parse());
+program.parse();

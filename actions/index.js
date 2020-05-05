@@ -3,5 +3,5 @@ const attackAction = require("./attack");
 
 module.exports = {
     loginAction : loginAction,
-    attackAction: attackAction
+    attackAction: attackAction,
 }

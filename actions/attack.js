@@ -1,7 +1,8 @@
 const FormData = require("form-data");
 const cheerio = require("cheerio");
 const chalk = require("chalk");
-const { client, settings } = require("../common");
+const { client, settings, utils } = require("../common");
+const loginAction = require("./login");
 
 // Parse response HTML content
 function parseAttackInfo(attackHtml) {
@@ -45,6 +46,11 @@ async function loopAttack() {
 
 // Main action
 async function main() {
+    settings.show();
+
+    console.log(utils.header("Action"));
+
+    await loginAction();
     await loopAttack();
 }
 
