@@ -1,4 +1,8 @@
 {
     "username": "",
-    "password": ""
+    "password": "",
+
+    "attack": {
+        "stopWhenSaveTimeLessThan": 1000
+    }
 }

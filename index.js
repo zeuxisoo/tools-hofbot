@@ -57,16 +57,28 @@ async function attack() {
     const formData = new FormData();
 
     // TODO: char_[ID] to settings
-    formData.append("char_todo", "1");
+    formData.append("char_[ID]", "1");
     formData.append("monster_battle", "戰鬥!");
 
     // TODO: monster id to settings
-    const response = await client("index.php?common=monster_id", {
+    const response = await client("index.php?common=[MONSTER_ID]", {
         method: "post",
         body  : formData,
     });
 
     return response.body;
+}
+
+//
+async function loopAttack() {
+    const attackHtml = await attack();
+    const attackInfo = parseAttackInfo(attackHtml);
+
+    console.log(`[Attack] message: ${attackInfo.message}, time: ${attackInfo.saveTime}`);
+
+    if (attackInfo.saveTime > settings.attack.stopWhenSaveTimeLessThan) {
+        loopAttack();
+    }
 }
 
 async function main() {
@@ -76,15 +88,10 @@ async function main() {
     console.log(`ID   : ${accountInfo.id}`);
     console.log(`Money: ${accountInfo.money}`);
     console.log(`Time : ${accountInfo.saveTime}`);
-    console.log("----------")
 
-    console.log(`Attack >>>`);
+    console.log("\n-----\n");
 
-    const attackHtml = await attack();
-    const attackInfo = parseAttackInfo(attackHtml);
-
-    console.log(`- message: ${attackInfo.message}`);
-    console.log(`- Time   : ${attackInfo.saveTime}`);
+    await loopAttack();
 }
 
 main();
