@@ -6,8 +6,8 @@ const loginAction = require("./login");
 const {program} = require("commander");
 
 // Parse response HTML content
-function parseCharListInfo(loginHtml) {
-    const $ = cheerio.load(loginHtml);
+function parseCharListInfo(charListHtml) {
+    const $ = cheerio.load(charListHtml);
 
     let charList = [];
 
