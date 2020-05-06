@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const { program } = require("commander");
-const { attackAction, charAction } = require("./actions");
+const { attackAction, charAction, monsterAction } = require("./actions");
 
 // Define command
 program
@@ -16,5 +16,11 @@ program
     .description("show the char list")
     .option("-l, --list", "show the char list", false)
     .action(charAction);
+
+program
+    .command("monster")
+    .description("show the monster list")
+    .option("-l, --list", "show the monster list", false)
+    .action(monsterAction);
 
 program.parse();
