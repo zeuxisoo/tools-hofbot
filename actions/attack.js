@@ -37,12 +37,38 @@ async function attack(attackType) {
     if (attackType == "boss") {
         formData.append("union_battle", "1");
 
-        const response = await client(`index.php?union=${settings.attack.bossId}`, {
-            method: "post",
-            body  : formData,
+        // Check the needed next battle time first in hunt page
+        const huntResponse = await client(`index.php?hunt`, {
+            method: "get",
+            hooks : {
+                beforeRequest: [
+                    options => {
+                        // tricks code to fix the query string normalized `hunt=` to `hunt`
+                        // - https://stackoverflow.com/a/4557763
+                        options.url.search = options.url.search.replace(/=$/, "");
+                    }
+                ]
+            }
         });
 
-        return response.body;
+        const $ = cheerio.load(huntResponse.body);
+        const timeLockMessage = $("#contents > div:nth-child(1) > div:nth-child(4)").text();
+
+        const [,,nextBattleTime] = timeLockMessage.match(/(.*)\s:\s([0-9]+:[0-9+]+)/);
+
+        // If the need next battle time is exists stop to attack
+        if (nextBattleTime.trim().length > 0) {
+            console.log(chalk`{yellow [Attack]} {bold ${nextBattleTime}} until the next battle time.`);
+
+            process.exit(0);
+        }else{
+            const response = await client(`union=${settings.attack.bossId}`, {
+                method: "post",
+                body  : formData,
+            });
+
+            return response.body;
+        }
     }
 }
 
