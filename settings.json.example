@@ -5,6 +5,7 @@
     "attack": {
         "stopWhenSaveTimeLessThan": 1000,
         "monsterId": "gb0",
+        "bossId": "0005",
         "charIds": {
             "char_": true
         }

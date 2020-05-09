@@ -9,6 +9,7 @@ program
 program
     .command("attack")
     .description("start the auto attack action")
+    .option("-t, --type <type>", "attack type (monster/boss)", "monster")
     .action(attackAction);
 
 program

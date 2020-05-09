@@ -1,3 +1,4 @@
+const { program } = require("commander");
 const FormData = require("form-data");
 const cheerio = require("cheerio");
 const chalk = require("chalk");
@@ -15,26 +16,39 @@ function parseAttackInfo(attackHtml) {
 }
 
 // Make request action
-async function attack() {
+async function attack(attackType) {
     const formData = new FormData();
 
     for(let [charId, isEnable] of Object.entries(settings.attack.charIds)) {
         formData.append(charId, +isEnable);
     }
 
-    formData.append("monster_battle", "戰鬥!");
+    if (attackType == "monster") {
+        formData.append("monster_battle", "戰鬥!");
 
-    const response = await client(`index.php?common=${settings.attack.monsterId}`, {
-        method: "post",
-        body  : formData,
-    });
+        const response = await client(`index.php?common=${settings.attack.monsterId}`, {
+            method: "post",
+            body  : formData,
+        });
 
-    return response.body;
+        return response.body;
+    }
+
+    if (attackType == "boss") {
+        formData.append("union_battle", "1");
+
+        const response = await client(`index.php?union=${settings.attack.bossId}`, {
+            method: "post",
+            body  : formData,
+        });
+
+        return response.body;
+    }
 }
 
 // Control flow
-async function loopAttack() {
-    const attackHtml = await attack();
+async function loopAttack(attackType) {
+    const attackHtml = await attack(attackType);
     const attackInfo = parseAttackInfo(attackHtml);
 
     console.log(chalk`{yellow [Attack]} message: {bold ${attackInfo.message}}, time: {bold ${attackInfo.saveTime}}`);
@@ -45,13 +59,21 @@ async function loopAttack() {
 }
 
 // Main action
-async function main() {
-    settings.show();
+async function main(command) {
+    const attackType  = command.type;
+    const attackTypes = ["monster", "boss"];
 
-    console.log(utils.header("Action"));
+    if (attackTypes.includes(attackType) === true)  {
+        settings.show();
 
-    await loginAction();
-    await loopAttack();
+        console.log(utils.header("Action"));
+        console.log(`Attack type: ${attackType}\n`);
+
+        await loginAction();
+        await loopAttack(attackType);
+    }else{
+        console.log(program.help());
+    }
 }
 
 module.exports = main;
