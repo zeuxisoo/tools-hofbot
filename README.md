@@ -20,12 +20,28 @@ Edit the default settings like login name, password, attack time settings and so
 
     nano settings.json
 
-Start to run the action
+## Action List
 
-    node index.js attack
+Attack the monster
 
-## Note
+    node index.js attack -t monster
 
-How to find the char id on your account, run the following command to get the char list
+Attack the boss
+
+    node index.js attack -t boss
+
+List your char
 
     node index.js char -l
+
+List the monster
+
+    node index.js monster -l
+
+List the boss
+
+    node index.js boss -l
+
+Watering time tree
+
+    node index.js timetree
