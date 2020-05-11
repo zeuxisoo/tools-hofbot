@@ -54,21 +54,26 @@ async function attack(attackType) {
         const $ = cheerio.load(huntResponse.body);
         const timeLockMessage = $("#contents > div:nth-child(1) > div:nth-child(4)").text();
 
-        const [,,nextBattleTime] = timeLockMessage.match(/(.*)\s:\s([0-9]+:[0-9+]+)/);
+        // Check the needed next battle message is or not exists
+        let nextBattleTime = "";
+
+        if (timeLockMessage.trim().length > 0) {
+            [,,nextBattleTime] = timeLockMessage.match(/(.*)\s:\s([0-9]+:[0-9+]+)/);
+        }
 
         // If the need next battle time is exists stop to attack
         if (nextBattleTime.trim().length > 0) {
             console.log(chalk`{yellow [Attack]} {bold ${nextBattleTime}} until the next battle time.`);
 
             process.exit(0);
-        }else{
-            const response = await client(`union=${settings.attack.bossId}`, {
-                method: "post",
-                body  : formData,
-            });
-
-            return response.body;
         }
+
+        const response = await client(`index.php?union=${settings.attack.bossId}`, {
+            method: "post",
+            body  : formData,
+        });
+
+        return response.body;
     }
 }
 
