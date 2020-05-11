@@ -80,7 +80,7 @@ async function loopAttack(attackType) {
     console.log(chalk`{yellow [Attack]} message: {bold ${attackInfo.message}}, time: {bold ${attackInfo.saveTime}}`);
 
     if (attackInfo.saveTime > settings.attack.stopWhenSaveTimeLessThan) {
-        loopAttack();
+        return await loopAttack(attackType);
     }
 }
 
