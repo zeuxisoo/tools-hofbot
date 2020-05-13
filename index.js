@@ -1,6 +1,10 @@
-const chalk = require("chalk");
 const { program } = require("commander");
-const { attackAction, charAction, monsterAction, bossAction, timeTreeAction } = require("./actions");
+const {
+    attackAction,
+    charAction, monsterAction, bossAction,
+    timeTreeAction,
+    settingsAction
+} = require("./actions");
 
 // Define command
 program
@@ -34,5 +38,10 @@ program
     .command("timetree")
     .description("watering time tree")
     .action(timeTreeAction)
+
+program
+    .command("settings")
+    .description("show the settings")
+    .action(settingsAction)
 
 program.parse();

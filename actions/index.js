@@ -4,6 +4,7 @@ const charAction = require("./char");
 const monsterAction = require("./monster");
 const bossAction = require("./boss");
 const timeTreeAction = require("./time-tree");
+const settingsAction = require("./settings");
 
 module.exports = {
     loginAction   : loginAction,
@@ -12,4 +13,5 @@ module.exports = {
     monsterAction : monsterAction,
     bossAction    : bossAction,
     timeTreeAction: timeTreeAction,
+    settingsAction: settingsAction,
 }
