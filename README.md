@@ -45,3 +45,7 @@ List the boss
 Watering time tree
 
     node index.js timetree
+
+Show the settings
+
+    node index.js settings
