@@ -16,7 +16,7 @@ Copy the default settings
 
     cp settings.json.example settings.json
 
-Edit the default settings like login name, password, attack time settings and so on
+Edit the default settings like url endpoint, login name, password, attack time settings and so on
 
     nano settings.json
 
