@@ -24,7 +24,7 @@ program
     .option("-l, --list", "show the monster list", false)
     .action(monsterAction);
 
-    program
+program
     .command("boss")
     .description("show the bss list")
     .option("-l, --list", "show the bss list", false)
