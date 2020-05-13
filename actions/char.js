@@ -41,8 +41,6 @@ async function fetchCharList() {
 // Main action
 async function main(command) {
     if (command.list) {
-        settings.show();
-
         console.log(utils.header("Char List"));
 
         await loginAction();

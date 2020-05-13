@@ -50,8 +50,6 @@ async function fetchBossList() {
 // Main action
 async function main(command) {
     if (command.list) {
-        settings.show();
-
         console.log(utils.header("Boss List"));
 
         await loginAction();

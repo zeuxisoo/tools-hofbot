@@ -47,8 +47,6 @@ async function fetchMonsterList() {
 // Main action
 async function main(command) {
     if (command.list) {
-        settings.show();
-
         console.log(utils.header("Monster List"));
 
         await loginAction();

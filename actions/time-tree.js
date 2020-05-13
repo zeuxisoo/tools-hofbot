@@ -26,8 +26,6 @@ async function wateringTimeTree() {
 
 // Main action
 async function main() {
-    settings.show();
-
     console.log(utils.header("Time tree List"));
 
     await loginAction();

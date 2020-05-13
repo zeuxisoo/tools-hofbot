@@ -95,8 +95,6 @@ async function main(command) {
     const attackTypes = ["monster", "boss"];
 
     if (attackTypes.includes(attackType) === true)  {
-        settings.show();
-
         console.log(utils.header("Action"));
         console.log(`Attack type: ${attackType}\n`);
 
