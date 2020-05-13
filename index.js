@@ -18,19 +18,19 @@ program
 
 program
     .command("char")
-    .description("show the char list")
+    .description("make the char action")
     .option("-l, --list", "show the char list", false)
     .action(charAction);
 
 program
     .command("monster")
-    .description("show the monster list")
+    .description("make the monster action")
     .option("-l, --list", "show the monster list", false)
     .action(monsterAction);
 
 program
     .command("boss")
-    .description("show the bss list")
+    .description("make the bss action")
     .option("-l, --list", "show the bss list", false)
     .action(bossAction);
 
